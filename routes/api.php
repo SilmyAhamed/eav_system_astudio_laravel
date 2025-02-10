@@ -1,30 +1,24 @@
 <?php
 
+use App\Http\Controllers\api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-
-
-// =================================
 use Laravel\Passport\Http\Controllers\AuthorizationController;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 use Laravel\Passport\Http\Controllers\TransientTokenController;
 use Laravel\Passport\Http\Controllers\ClientController;
 use Laravel\Passport\Http\Controllers\PersonalAccessTokenController;
-// =================================
-
-Route::get('/test', function () {
-    return response()->json(['message' => 'API is working']);
-});
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth:sanctum');
+})->middleware('auth:api');
 
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:sanctum');
+
+Route::post('/register', [AuthController::class, "register"]);
+Route::post('/login', [AuthController::class, "login"]);
 
 
 
