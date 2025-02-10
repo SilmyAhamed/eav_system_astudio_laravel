@@ -1,7 +1,7 @@
 # Timesheet and EAV System
 
 ## Setup Instructions
-  1.  Clone the repository: `git clone ...`
+  1.  Clone the repository: `git clone https://github.com/SilmyAhamed/eav_system_astudio_laravel.git`
   2.  Install dependencies: `composer install`
   3.  Configure database: `.env` file
       (DB_DATABASE = eav_system_astudio_db)
