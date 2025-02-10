@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\ProjectController;
+use App\Http\Controllers\api\TimesheetController;
+use App\Http\Controllers\api\AttributeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Http\Controllers\AuthorizationController;
@@ -20,13 +23,18 @@ Route::get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, "register"]);
 Route::post('/login', [AuthController::class, "login"]);
 
+// Protected Routes (Requires Authentication)
+Route::middleware('auth:api')->group(function () {
+    Route::apiResource('projects', ProjectController::class);
+    Route::apiResource('timesheets', TimesheetController::class);
+    Route::apiResource('attributes', AttributeController::class);
+});
 
 
 
 
 
-
-// =================================
+# ------------------------------------------------------------------------------------
 Route::post('/oauth/token', [AccessTokenController::class, 'issueToken'])
     ->middleware(['throttle']);
 
@@ -41,4 +49,4 @@ Route::delete('/oauth/clients/{client_id}', [ClientController::class, 'destroy']
 Route::post('/oauth/personal-access-tokens', [PersonalAccessTokenController::class, 'store']);
 Route::get('/oauth/personal-access-tokens', [PersonalAccessTokenController::class, 'index']);
 Route::delete('/oauth/personal-access-tokens/{token_id}', [PersonalAccessTokenController::class, 'destroy']);
-// =================================
+# ------------------------------------------------------------------------------------
